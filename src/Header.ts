@@ -61,7 +61,10 @@ export class Header {
         }
         if(!equal(Header.HEADER_SIGNATURE, dataView.subView(Header.FLAG_POSITION.SIGNATURE, Header.FLAG_POSITION.SIGNATURE + 8).getData()))
             throw new Error();
-        if(!equal(Header.MINOR_VERSION_3, dataView.subView(Header.FLAG_POSITION.MINOR_VERSION, Header.FLAG_POSITION.MINOR_VERSION +2).getData()))
+        if(
+            !equal(Header.MINOR_VERSION_3, dataView.subView(Header.FLAG_POSITION.MINOR_VERSION, Header.FLAG_POSITION.MINOR_VERSION +2).getData()) &&
+            !equal([0x21, 0x00], dataView.subView(Header.FLAG_POSITION.MINOR_VERSION, Header.FLAG_POSITION.MINOR_VERSION +2).getData())
+        )
             throw new Error();
         if(!equal(Header.MAJOR_VERSION_3, dataView.subView(Header.FLAG_POSITION.MAJOR_VERSION, Header.FLAG_POSITION.MAJOR_VERSION +2).getData()))
             throw new Error();
